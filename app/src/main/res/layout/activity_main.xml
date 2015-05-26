@@ -19,15 +19,14 @@
 
         android:layout_marginTop="100dp"
 
-        android:numColumns="5"
-        android:columnWidth="20dp"
+        android:numColumns="4"
         android:clickable="true"
         android:choiceMode="singleChoice"
         android:visibility="visible"
-        android:verticalSpacing="2dp"
-        android:horizontalSpacing="2dp"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
         android:gravity="center"
-        />
-
+        android:padding="5dp"
+         />
 
 </RelativeLayout>

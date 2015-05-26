@@ -100,7 +100,6 @@ public class MainActivity extends ActionBarActivity {
 
             String cellText = getCellText(position);
             textView = (TextView) convertView.findViewById(R.id.id_gridCell);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(wPix, hPix));
             textView.setText(cellText);
             return convertView;
         }
