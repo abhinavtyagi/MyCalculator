@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.AndroidException;
+import android.util.AndroidRuntimeException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements GridView.OnItemClickListener {
 
     protected int columnIndex;
     protected GridView mGridView;
     protected TextAdapter mAdapter;
+    protected String mExpression;
+    private boolean isCurrentNumContainsPoint = false;       // check for num is with multiple points 1.2.3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,73 @@ public class MainActivity extends ActionBarActivity {
         mGridView = (GridView) findViewById(R.id.calculatorCellsView);
         mAdapter = new TextAdapter(this);
         mGridView.setAdapter(mAdapter);
+        mGridView.setOnItemClickListener(this);
 
+        TextView expressionsView = (TextView) findViewById(R.id.expressionsView);
+        if(mExpression==null || mExpression.isEmpty()) {
+            mExpression="";
+            expressionsView.setText(getString(R.string.default_expression));
+        }
+        else {
+            expressionsView.setText(mExpression);
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TextView expressionsView = (TextView) findViewById(R.id.expressionsView);
+        TextView inputCell = (TextView)view.findViewById(R.id.id_gridCell);
+        String input = inputCell.getText().toString();
+        char ch = input.charAt(0);  // input always have 1 char
+        if(input.equalsIgnoreCase("="))
+        {
+            mExpression="";
+            isCurrentNumContainsPoint = false;
+            // ToDo: Handle Expression evaluation logic here
+            expressionsView.setText(R.string.default_expression);
+            return;
+        }
+        else
+        {
+            // Not '=' pressed. So, update expression string with following restrictions
+            // 1. Cant have operators at beginning
+            // 2. cant have 2 operators / decimal together. For this, check at time of adding key-pressed
+            // 3. Cant have 2 decimals in a number
+            // 4. ToDo: 3+.5 needs 3+0.5
+            if(isCurrentNumContainsPoint && ch=='.')
+            {
+                return;
+            }
+            if(mExpression.length()==0)
+            {
+                if(ch=='+' || ch=='-' || ch=='*' || ch=='/')
+                {
+                    // do nothing. ToDo: show notification if possible
+                    return;
+                }
+            }
+            else
+            {
+                // the mExpression string is not zero length; check it didnt ended with operator or decimal
+                char expressionEnd = mExpression.charAt(mExpression.length()-1);
+                if((ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='.') &&
+                        (expressionEnd=='+' || expressionEnd=='-' || expressionEnd=='*' || expressionEnd=='/' || expressionEnd=='.'))
+                {
+                    // do nothing. ToDo: show notification if possible
+                    return;
+                }
+            }
+        }
+        if(ch=='.')
+        {
+            isCurrentNumContainsPoint = true;
+        }
+        else if (ch=='+' || ch=='-' || ch=='*' || ch=='/')
+        {
+            isCurrentNumContainsPoint = false;
+        }
+        mExpression += input;
+        expressionsView.setText(mExpression);
     }
 
     @Override
@@ -65,7 +136,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return 3*4;
+            return 4*4;
         }
 
         @Override
@@ -83,16 +154,10 @@ public class MainActivity extends ActionBarActivity {
             int pix = (int) (dps * scale + 0.5);
             return pix;
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView textView;
-            int index = 0;
-
-            int wPix = dpToPx(120);
-            int hPix = dpToPx(60);
-
-
-            index = position / 4;
 
             if(convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.gridview_cell_layout, null);
@@ -107,16 +172,16 @@ public class MainActivity extends ActionBarActivity {
             String cellText = null;
             switch (cellId)   {
                 case 0:
-                    cellText = getString(R.string.button_zero_text);
+                    cellText = getString(R.string.button_seven_text);
                     break;
                 case 1:
-                    cellText = getString(R.string.button_one_text);
+                    cellText = getString(R.string.button_eight_text);
                     break;
                 case 2:
-                    cellText = getString(R.string.button_two_text);
+                    cellText = getString(R.string.button_nine_text);
                     break;
                 case 3:
-                    cellText = getString(R.string.button_three_text);
+                    cellText = getString(R.string.button_plus_sign);
                     break;
                 case 4:
                     cellText = getString(R.string.button_four_text);
@@ -128,21 +193,40 @@ public class MainActivity extends ActionBarActivity {
                     cellText = getString(R.string.button_six_text);
                     break;
                 case 7:
-                    cellText = getString(R.string.button_five_text);
+                    cellText = getString(R.string.button_minus_sign);
                     break;
                 case 8:
-                    cellText = getString(R.string.button_eight_text);
+                    cellText = getString(R.string.button_one_text);
                     break;
                 case 9:
-                    cellText = getString(R.string.button_nine_text);
+                    cellText = getString(R.string.button_two_text);
+                    break;
+                case 10:
+                    cellText = getString(R.string.button_three_text);
+                    break;
+                case 11:
+                    cellText = getString(R.string.button_multiply_sign);
+                    break;
+                case 12:
+                    cellText = getString(R.string.button_decimal_point);
+                    break;
+                case 13:
+                    cellText = getString(R.string.button_zero_text);
+                    break;
+                case 14:
+                    cellText = getString(R.string.button_equal_to);
+                    break;
+                case 15:
+                    cellText = getString(R.string.button_divide);
                     break;
                 default:
-                    cellText = getString(R.string.button_zero_text);
+                    cellText = getString(R.string.button_undefined);
                     break;
             }
             return cellText;
         }
     }
-}
 
+
+}
 

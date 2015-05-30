@@ -18,12 +18,14 @@
     <string name="button_eight_text">8</string>
     <string name="button_nine_text">9</string>
     <string name="button_zero_text">0</string>
-    <string name="plus_sign">+</string>
-    <string name="minus_sign">-</string>
-    <string name="multiply_sign">*</string>
-    <string name="divide">/</string>
-    <string name="decimal_point">.</string>
-    <string name="equal_to">=</string>
+    <string name="button_plus_sign">+</string>
+    <string name="button_minus_sign">-</string>
+    <string name="button_multiply_sign">*</string>
+    <string name="button_divide">/</string>
+    <string name="button_decimal_point">.</string>
+    <string name="button_equal_to">=</string>
+    <string name="button_undefined">oO</string>
+    <string name="default_expression">enter expression</string>
     <string name="back">#</string>
 
 

@@ -7,14 +7,20 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:textAlignment="center">
 
-    <TextView android:text="@string/hello_world" android:layout_width="fill_parent"
-        android:layout_height="48dp"
+    <TextView android:text="@string/hello_world"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:gravity="right"
         android:textIsSelectable="true"
-        android:id="@+id/textView" />
+        android:id="@+id/expressionsView"
+        android:padding="10dp"
+        android:background="@drawable/view_background"
+        />
 
     <GridView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="260dp"
         android:id="@+id/calculatorCellsView"
 
         android:layout_marginTop="100dp"
@@ -26,7 +32,6 @@
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
         android:gravity="center"
-        android:padding="5dp"
          />
 
 </RelativeLayout>
