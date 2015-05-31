@@ -56,10 +56,9 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
         char ch = input.charAt(0);  // input always have 1 char
         if(input.equalsIgnoreCase("="))
         {
-            mExpression="";
             isCurrentNumContainsPoint = false;
-            // ToDo: Handle Expression evaluation logic here
-            expressionsView.setText(R.string.default_expression);
+            expressionsView.setText(evaluateStringExpression(mExpression));
+            mExpression="";
             return;
         }
         else
@@ -125,6 +124,12 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    String evaluateStringExpression(String expression)
+    {
+        String result = "ToDo Eval ["+expression+"]";
+        return result;
     }
 
     // ############################################################################################
