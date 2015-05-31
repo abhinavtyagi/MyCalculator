@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
             {
                 // the mExpression string is not zero length; check it didnt ended with operator or decimal
                 char expressionEnd = mExpression.charAt(mExpression.length()-1);
-                if((ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='.') &&
+                if((ch=='+' || ch=='-' || ch=='*' || ch=='/') &&
                         (expressionEnd=='+' || expressionEnd=='-' || expressionEnd=='*' || expressionEnd=='/' || expressionEnd=='.'))
                 {
                     // do nothing. ToDo: show notification if possible
