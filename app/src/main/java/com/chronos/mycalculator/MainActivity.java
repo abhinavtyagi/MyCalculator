@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -57,8 +58,9 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
         if(input.equalsIgnoreCase("="))
         {
             isCurrentNumContainsPoint = false;
-            expressionsView.setText(evaluateStringExpression(mExpression));
-            mExpression="";
+            String evaluatedExpression = evaluateStringExpression(mExpression);
+            expressionsView.setText(evaluatedExpression);
+            mExpression = evaluatedExpression;
             return;
         }
         else
@@ -128,8 +130,47 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
 
     String evaluateStringExpression(String expression)
     {
-        String result = "ToDo Eval ["+expression+"]";
-        return result;
+        String[] numbers = mExpression.split("[^0123456789.]");
+        Double expressionValue = 0.0;
+        if (numbers.length > 1)
+        {
+            int nextOperandIndex = -1;
+            char operand = ' ';
+            for (String element : numbers)
+            {
+                Double op1 = expressionValue;
+                Double op2 = new Double(element);
+                switch (operand)
+                {
+                    case '+':
+                        expressionValue = op1 + op2;
+                        break;
+                    case '-':
+                        expressionValue = op1 - op2;
+                        break;
+                    case '*':
+                        expressionValue = op1 * op2;
+                        break;
+                    case '/':
+                        expressionValue = op1 / op2;
+                        break;
+                    case ' ':
+                        assert (expressionValue == 0);
+                        expressionValue = op2;
+                        break;
+                    default:
+                        assert (false) ;
+                        break;
+                }
+                nextOperandIndex += element.length()+1;
+                if(nextOperandIndex < mExpression.length())
+                {
+                    operand = mExpression.charAt(nextOperandIndex);
+                }
+            }
+
+        }
+        return expressionValue.toString();
     }
 
     // ############################################################################################
