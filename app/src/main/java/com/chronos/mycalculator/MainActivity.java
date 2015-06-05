@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
     protected TextAdapter mAdapter;
     protected String mExpression;
     private boolean isCurrentNumContainsPoint = false;       // check for num is with multiple points 1.2.3
+    private boolean isExpresssionEvaluated = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,11 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
         }
     }
 
+    private boolean isOperator(char ch)
+    {
+        return (ch=='+' || ch=='-' || ch=='*' || ch=='/');
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView expressionsView = (TextView) findViewById(R.id.expressionsView);
@@ -57,10 +63,11 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
         char ch = input.charAt(0);  // input always have 1 char
         if(input.equalsIgnoreCase("="))
         {
-            isCurrentNumContainsPoint = false;
             String evaluatedExpression = evaluateStringExpression(mExpression);
             expressionsView.setText(evaluatedExpression);
             mExpression = evaluatedExpression;
+            isCurrentNumContainsPoint = true;   // At the end, the expression will contain result
+            isExpresssionEvaluated = true;
             return;
         }
         else
@@ -70,6 +77,17 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
             // 2. cant have 2 operators / decimal together. For this, check at time of adding key-pressed
             // 3. Cant have 2 decimals in a number
             // 4. ToDo: 3+.5 needs 3+0.5
+
+            if(isExpresssionEvaluated)
+            {
+                if(false == isOperator(ch))
+                {
+                    mExpression = "";
+                    isCurrentNumContainsPoint=false;
+                }
+                isExpresssionEvaluated = false;
+            }
+
             if(isCurrentNumContainsPoint && ch=='.')
             {
                 return;
@@ -103,7 +121,12 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
             isCurrentNumContainsPoint = false;
         }
         mExpression += input;
-        expressionsView.setText(mExpression);
+        int start, end;
+        int allowedCharacters = 30;
+        end = mExpression.length()-1;
+        start = end-allowedCharacters >=0 ? end-allowedCharacters : 0;
+        String textViewString = mExpression.substring(start, end);
+        expressionsView.setText(textViewString);
     }
 
     @Override
@@ -132,7 +155,7 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
     {
         String[] numbers = mExpression.split("[^0123456789.]");
         Double expressionValue = 0.0;
-        if (numbers.length > 1)
+        if (numbers.length >= 1)
         {
             int nextOperandIndex = -1;
             char operand = ' ';

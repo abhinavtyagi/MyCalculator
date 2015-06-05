@@ -16,6 +16,8 @@
         android:id="@+id/expressionsView"
         android:padding="10dp"
         android:background="@drawable/view_background"
+        android:singleLine="true"
+        android:nestedScrollingEnabled="false"
         />
 
     <GridView
