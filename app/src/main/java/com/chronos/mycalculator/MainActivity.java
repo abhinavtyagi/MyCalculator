@@ -123,7 +123,7 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
         mExpression += input;
         int start, end;
         int allowedCharacters = 30;
-        end = mExpression.length()-1;
+        end = mExpression.length();
         start = end-allowedCharacters >=0 ? end-allowedCharacters : 0;
         String textViewString = mExpression.substring(start, end);
         expressionsView.setText(textViewString);
