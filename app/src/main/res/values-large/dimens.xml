@@ -1,0 +1,17 @@
+<resources>
+    <!-- large 7" 800x1200-->
+    <dimen name="activity_vertical_margin">0dp</dimen>
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="gridcells_height">80dp</dimen>
+    <dimen name="gridcells_width">80dp</dimen>
+    <dimen name="gridcell_hSpacing">25dp</dimen>
+    <dimen name="gridcell_vSpacing">25dp</dimen>
+    <dimen name="gridcell_textSize">40dp</dimen>
+    <dimen name="expressionsview_height">400dp</dimen>
+    <dimen name="gridview_padding_top">40dp</dimen>
+    <dimen name="gridview_padding_left">40dp</dimen>
+    <dimen name="gridview_padding_right">40dp</dimen>
+    <dimen name="button_stroke_width">2dp</dimen>
+    <integer name="expressionView_textLength">25</integer>
+    <dimen name="expressionsView_textSize">40dp</dimen>
+</resources>
