@@ -9,8 +9,8 @@
 
     <TextView android:text="@string/hello_world"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:textSize="40dp"
+        android:layout_height="@dimen/expressionsview_height"
+        android:textSize="@dimen/expressionsView_textSize"
         android:gravity="right|center_vertical"
         android:textIsSelectable="true"
         android:id="@+id/expressionsView"
@@ -34,7 +34,9 @@
         android:verticalSpacing="@dimen/gridcell_vSpacing"
         android:horizontalSpacing="@dimen/gridcell_hSpacing"
         android:gravity="center_vertical|center_horizontal"
-        android:padding="10dp"
+        android:paddingTop="@dimen/gridview_padding_top"
+        android:paddingLeft="@dimen/gridview_padding_left"
+        android:paddingRight="@dimen/gridview_padding_right"
         android:animateLayoutChanges="false"
         android:listSelector="#00000000"
 

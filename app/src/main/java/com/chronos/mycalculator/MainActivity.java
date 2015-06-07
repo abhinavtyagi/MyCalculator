@@ -66,11 +66,27 @@ public class MainActivity extends Activity implements GridView.OnItemClickListen
         char ch = input.charAt(0);  // input always have 1 char
         if(input.equalsIgnoreCase("="))
         {
-            String evaluatedExpression = evaluateStringExpression(mExpression);
-            expressionsView.setText(evaluatedExpression);
-            mExpression = evaluatedExpression;
-            isCurrentNumContainsPoint = true;   // At the end, the expression will contain result
-            isExpresssionEvaluated = true;
+            char lastChar = ' ';
+            if(mExpression.length()>0)
+            {
+                lastChar = mExpression.charAt(mExpression.length()-1);
+            }
+            if(lastChar!=' ' && (isOperator(lastChar) || lastChar=='.')==false)
+            {
+                String evaluatedExpression = evaluateStringExpression(mExpression);
+                if(evaluatedExpression.equalsIgnoreCase("infinity"))
+                {
+                    expressionsView.setText("Illegal Op");
+                    mExpression = "0.0";
+                }
+                else
+                {
+                    expressionsView.setText(evaluatedExpression);
+                    mExpression = evaluatedExpression;
+                }
+                isCurrentNumContainsPoint = true;   // At the end, the expression will contain result
+                isExpresssionEvaluated = true;
+            }
             return;
         }
         else
@@ -125,7 +141,7 @@ public class MainActivity extends Activity implements GridView.OnItemClickListen
         }
         mExpression += input;
         int start, end;
-        int allowedCharacters = 30;
+        int allowedCharacters = getResources().getInteger(R.integer.expressionView_textLength);
         end = mExpression.length();
         start = end-allowedCharacters >=0 ? end-allowedCharacters : 0;
         String textViewString = mExpression.substring(start, end);
@@ -158,7 +174,7 @@ public class MainActivity extends Activity implements GridView.OnItemClickListen
     {
         String[] numbers = mExpression.split("[^0123456789.]");
         Double expressionValue = 0.0;
-        if (numbers.length >= 1)
+        if (numbers.length >= 1 && expression.length()>0)
         {
             int nextOperandIndex = -1;
             char operand = ' ';
