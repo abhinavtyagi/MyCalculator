@@ -1,12 +1,15 @@
 package com.chronos.mycalculator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.AndroidException;
 import android.util.AndroidRuntimeException;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity implements GridView.OnItemClickListener {
+public class MainActivity extends Activity implements GridView.OnItemClickListener {
 
     protected int columnIndex;
     protected GridView mGridView;
@@ -80,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
 
             if(isExpresssionEvaluated)
             {
-                if(false == isOperator(ch))
+                if(!isOperator(ch))
                 {
                     mExpression = "";
                     isCurrentNumContainsPoint=false;
@@ -235,10 +238,11 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
             String cellText = getCellText(position);
             textView = (TextView) convertView.findViewById(R.id.id_gridCell);
             textView.setText(cellText);
+
             return convertView;
         }
         private String getCellText(int cellId)   {
-            String cellText = null;
+            String cellText ;
             switch (cellId)   {
                 case 0:
                     cellText = getString(R.string.button_seven_text);
@@ -295,7 +299,4 @@ public class MainActivity extends ActionBarActivity implements GridView.OnItemCl
             return cellText;
         }
     }
-
-
 }
-

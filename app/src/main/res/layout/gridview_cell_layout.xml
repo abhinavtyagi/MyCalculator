@@ -2,15 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="05dp">
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/id_gridCell"
-        android:background="@drawable/view_background"
+        android:background="@drawable/circularbutton_selector"
         android:layout_margin="0dp"
-        android:gravity="center"
+        android:gravity="center_horizontal|center_vertical"
         android:textSize="40dp"
-        android:text="Hello"
+        android:text="-"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:elevation="5dp"
         />
 </LinearLayout>

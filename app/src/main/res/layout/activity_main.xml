@@ -9,31 +9,35 @@
 
     <TextView android:text="@string/hello_world"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:gravity="right"
+        android:layout_height="200dp"
+        android:textSize="40dp"
+        android:gravity="right|center_vertical"
         android:textIsSelectable="true"
         android:id="@+id/expressionsView"
-        android:padding="10dp"
-        android:background="@drawable/view_background"
+        android:paddingRight="10dp"
+        android:background="#CFCFCF"
         android:singleLine="true"
         android:nestedScrollingEnabled="false"
         />
 
     <GridView
         android:layout_width="fill_parent"
-        android:layout_height="260dp"
+        android:layout_height="fill_parent"
         android:id="@+id/calculatorCellsView"
 
-        android:layout_marginTop="100dp"
-
+        android:layout_marginTop="0dp"
+        android:layout_below="@id/expressionsView"
         android:numColumns="4"
-        android:clickable="true"
+        android:clickable="false"
         android:choiceMode="singleChoice"
         android:visibility="visible"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:gravity="center"
-         />
+        android:verticalSpacing="@dimen/gridcell_vSpacing"
+        android:horizontalSpacing="@dimen/gridcell_hSpacing"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="10dp"
+        android:animateLayoutChanges="false"
+        android:listSelector="#00000000"
+
+        />
 
 </RelativeLayout>
