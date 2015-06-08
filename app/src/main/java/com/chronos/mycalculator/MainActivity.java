@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements GridView.OnItemClickListen
             if(lastChar!=' ' && (isOperator(lastChar) || lastChar=='.')==false)
             {
                 String evaluatedExpression = evaluateStringExpression(mExpression);
-                if(evaluatedExpression.equalsIgnoreCase("infinity"))
+                if(evaluatedExpression.equalsIgnoreCase("infinity")||evaluatedExpression.equalsIgnoreCase("NaN"))
                 {
                     expressionsView.setText("Illegal Op");
                     mExpression = "0.0";

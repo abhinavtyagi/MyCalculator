@@ -16,4 +16,5 @@
     <dimen name="button_stroke_width">1dp</dimen>
     <integer name="expressionView_textLength">25</integer>
     <dimen name="expressionsView_textSize">20dp</dimen>
+    <dimen name="gridview_margin_top">20dp</dimen>
 </resources>

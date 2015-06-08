@@ -25,7 +25,7 @@
         android:layout_height="fill_parent"
         android:id="@+id/calculatorCellsView"
 
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/gridview_margin_top"
         android:layout_below="@id/expressionsView"
         android:numColumns="4"
         android:clickable="false"
